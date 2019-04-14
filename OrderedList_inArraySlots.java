@@ -12,29 +12,45 @@ public class OrderedList_inArraySlots
 
     private ArrayList<Integer> list_iAS;
 
-    /** 
+    /**
       construct order from an unordered ArrayList
      */
     public OrderedList_inArraySlots
             ( ArrayList<Integer> unordered) {
-        this();  // replace this line
+        this();
 
-        // test champIndex, for incremental development
-        int nextLargerAt = champIndex( unordered);
-        System.out.println( 
-            "smallest element is at index " + nextLargerAt 
-          + " and has the value " + unordered.get( nextLargerAt));
+        Integer nextLargerAt = null;
+        int index = 0;
+        while ( index < unordered.size() ) {
+            nextLargerAt = champIndex( unordered);
+            System.out.println(
+                "smallest element is at index " + nextLargerAt
+              + " and has the value " + list_iAS.get(index) );
+            index++;
+        }
+
     }
 
 
-    /** 
+    /**
       helper function for constructor
       @return the index of the smallest of the elements,
               ignoring null elements, and
               using the classic reigning champ algorithm
      */
      private int champIndex( ArrayList<Integer> challengers) {
-        return challengers.size() - 1;  // replace this line
+        Integer champ = Integer.MAX_VALUE;
+        int indexOfChamp = 0;
+        for (int index = 0; index < challengers.size(); index++) {
+            Integer nextValue = challengers.get( index );
+            if (nextValue < champ) {
+                champ = nextValue;
+                indexOfChamp = index;
+            }
+        }
+        challengers.set(indexOfChamp, Integer.MAX_VALUE);
+        list_iAS.add(champ);
+        return indexOfChamp;
      }
 
 
